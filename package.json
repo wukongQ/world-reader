@@ -2,7 +2,7 @@
   "name": "world-reader",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./app/main.js",
   "scripts": {
     "start": "electron ./app/main",
     "dev:renderer": "cross-env NODE_ENV=development webpack-dev-server --config configs/renderer-dev.js",
@@ -11,7 +11,8 @@
     "build:renderer": "cross-env NODE_ENV=production webpack --config configs/renderer-prod.js",
     "build:main": "cross-env NODE_ENV=production webpack --config configs/main-webpack.js",
     "build": "concurrently \"npm run build:renderer\" \"npm run build:main\"",
-    "packager": "electron-packager ./app world-reader --overwrite --platform=darwin --arch=x64 --out=./out --icon=./logo.icns"
+    "packager-failed": "electron-packager ./app world-reader --overwrite --platform=darwin --arch=x64 --out=./out --icon=./logo.icns",
+    "packager": "electron-builder"
   },
   "keywords": [],
   "author": "dlgonepiece",
@@ -33,6 +34,7 @@
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
     "electron": "^6.0.11",
+    "electron-builder": "^21.2.0",
     "electron-packager": "^14.0.6",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
@@ -54,5 +56,15 @@
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-router-dom": "^5.1.2"
+  },
+  "build": {
+    "productName": "world-reader",
+    "appId": "com.world-reader.app",
+    "directories": {
+      "output": "./buildout"
+    },
+    "mac": {
+      "icon": "./world.icns"
+    }
   }
 }
