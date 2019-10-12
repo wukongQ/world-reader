@@ -11,7 +11,7 @@
     "build:renderer": "cross-env NODE_ENV=production webpack --config configs/renderer-prod.js",
     "build:main": "cross-env NODE_ENV=production webpack --config configs/main-webpack.js",
     "build": "concurrently \"npm run build:renderer\" \"npm run build:main\"",
-    "packager-failed": "electron-packager ./app world-reader --overwrite --platform=darwin --arch=x64 --out=./out --icon=./logo.icns",
+    "packager-ano": "electron-packager . world-reader --overwrite --platform=darwin --arch=x64 --out=./out --icon=./logo.icns --ignore=\"(node_modules*|src*|out*|buildout*|configs*)\"",
     "packager": "electron-builder"
   },
   "keywords": [],
@@ -59,10 +59,15 @@
   },
   "build": {
     "productName": "world-reader",
-    "appId": "com.world-reader.app",
+    "appId": "com.world.reader.app",
     "directories": {
       "output": "./buildout"
     },
+    "files": [
+      "!node_modules${/*}",
+      "!src${/*}",
+      "!out${/*}"
+    ],
     "mac": {
       "icon": "./world.icns"
     }
