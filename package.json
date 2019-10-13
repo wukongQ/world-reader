@@ -11,7 +11,8 @@
     "build:renderer": "cross-env NODE_ENV=production webpack --config configs/renderer-prod.js",
     "build:main": "cross-env NODE_ENV=production webpack --config configs/main-webpack.js",
     "build": "concurrently \"npm run build:renderer\" \"npm run build:main\"",
-    "packager-ano": "electron-packager . world-reader --overwrite --platform=darwin --arch=x64 --out=./out --icon=./logo.icns --ignore=\"(node_modules*|src*|out*|buildout*|configs*)\"",
+    "packager:mac": "electron-packager . world-reader --overwrite --platform=darwin --arch=x64 --out=./out --icon=./logo.icns --ignore=\"(node_modules*|src*|out*|buildout*|configs*)\"",
+    "packager:win": "electron-packager . world-reader --overwrite --platform=win32 --arch=x64 --out=./out --icon=./logo.ico --ignore=\"(node_modules*|src*|out*|buildout*|configs*)\"",
     "packager": "electron-builder"
   },
   "keywords": [],
@@ -68,8 +69,16 @@
       "!src${/*}",
       "!out${/*}"
     ],
-    "mac": {
-      "icon": "./world.icns"
+    "win": {
+      "icon": "./world.icns",
+      "target": ["nsis","zip"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   }
 }

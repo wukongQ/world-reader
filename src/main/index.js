@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-import { app, BrowserWindow, ipcMain, dialog, clipboard } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog, clipboard, Menu } from 'electron'
 import path from 'path'
 import fs from 'fs'
 import { format as formatUrl } from 'url'
@@ -11,15 +11,22 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 let mainWindow
 
 function createWindow () {
+  Menu.setApplicationMenu(null)
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 400,
     height: 500,
+    backgroundColor: '#fff',
+    show: false,
     webPreferences: {
       nodeIntegration: true
-    }
-    // titleBarStyle: 'hidden'
+    },
     // frame: false
+    titleBarStyle: 'hidden'
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
   })
 
   if (isDevelopment) {
